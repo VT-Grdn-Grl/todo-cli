@@ -35,10 +35,28 @@ def list_tasks():
         for i, task in enumerate(tasks, 1):
             print(f"{i}. {task}")
 
+def delete_task(task_number):
+    tasks = load_tasks()
+    if not tasks or task_number < 1 or task_number > len(tasks):
+        print("Invalid task number")
+        return
+    deleted_task = tasks.pop(task_number - 1)
+    save_tasks(tasks)
+    print(f"Deleted task: {deleted_task}")
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python todo.py [add/list] [task]")
+        print("Usage: python todo.py [add/list/delete] [task/number]")
     elif sys.argv[1] == "add":
         add_task(" ".join(sys.argv[2:]))
     elif sys.argv[1] == "list":
         list_tasks()
+    elif sys.argv[1] == "delete":
+        if len(sys.argv) != 3:
+            print("Please provide the task number to delete")
+        else:
+            try:
+                task_number = int(sys.argv[2])
+                delete_task(task_number)
+            except ValueError:
+                print("Please provide a valid task number")
