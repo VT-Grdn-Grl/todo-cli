@@ -1,3 +1,7 @@
+"""
+A simple command-line todo list application that allows users to add and list tasks.
+Tasks are persisted in a JSON file.
+"""
 import sys
 import json
 import os
